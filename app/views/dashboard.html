@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Success</title>
+</head>
+<body>
+	<p><a href="/">Logout</a></p>
+	<h2>Welcome, {{user['username']}}!</h2>
+	<h3>Your Wish List:</h3>
+	<h3>PROD BY USER: {{products_by_user}}</h3>
+		<fieldset style="width:60%" display=inline-block>
+		<table style="width:100%">
+			  <tr>
+			    <th>Item</th>
+			    <th>Added By</th>
+			    <th>Date Added</th> 
+			    <th>Action</th> 
+			  </tr>
+			{% if products_by_user %}
+				{% for product in products_by_user %}
+				  <tr>
+				  	<input type="hidden" name="product_id" value="{{product['product_id']}}">
+				    <td><a href="/wish_item/{{product['product_id']}}">{{product['name']}}</a></td>
+				    <td>{{product['username']}}</td>
+				    <td>{{product['created_at']}}</td>
+				    <td><a href="/remove">Remove from my Wishlist</a></td> 
+				  </tr>
+				{% endfor %}
+			{% endif %}
+		</table>
+		</fieldset>
+	<h3>Other Users' Wish List:</h3>
+		<fieldset style="width:60%" display=inline-block>
+		<table style="width:100%">
+			  <tr>
+			    <th>Item</th>
+			    <th>Added By</th>
+			    <th>Date Added</th> 
+			    <th>Action</th> 
+			  </tr>
+			{% if remain_products %}
+				{% for prod in remain_products %}
+				   <tr>
+				    <td><a href="/wish_item/{{prod['product_id']}}">{{prod['name']}}</a></td>
+				    <td>{{prod['username']}}</td>
+				    <td>{{prod['created_at']}}</td>
+				    <td><a href="/add">Add to my Wishlist</a></td> 
+				  </tr>
+				{% endfor %}
+			{% endif %}
+		</table>
+		</fieldset>
+
+	<h3><a href="/wish_items/create">Add Item</a></h3>
+
+</body>
+</html>

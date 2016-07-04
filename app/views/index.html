@@ -1,8 +1,38 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
-  </head>
-  <body>
-    The best place to start is the "WelcomeController.py" file in app/controllers.
-  </body>
+<head>
+	<title>Login and Registration</title>
+</head>
+<body>
+	<h1>Welcome! Please Log In or Register!</h1>
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+				<p>{{message}}</p>
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
+	
+	<h3>Existing Users:</h3>
+	<form action="/login" method="post">
+		<fieldset>
+			<div>Username: <input type="text" name="username"></div>
+			<div>Password: <input type="password" name="password"></div>
+			<button value="submit" name="submit">Login</button>
+		</fieldset>
+	</form>
+	<h3>New Users:</h3>
+	<form action="/register" method="post">
+		<fieldset>
+			<input type="hidden" name="action" value="new">
+			<div>Name: <input type="text" name="name"></div>
+			<div>Username: <input type="text" name="username"></div>
+			<div>Password: <input type="password" name="password"></div>
+			<h6>*Password should be at least 8 characters</h6>
+			<div>Confirm Password: <input type="password" name="pconfirm"></div>
+			<div>Date Hired: <input type="date" name="hired"></div>
+			<button value="submit" name="submit">Register</button>
+		</fieldset>
+	</form>
+</body>
 </html>
